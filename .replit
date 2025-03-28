@@ -5,7 +5,8 @@ run = "mvn spring-boot:run"
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "mvn spring-boot:run"]
+run = ["sh", "-c", "java -jar target/gemini-chat-0.0.1-SNAPSHOT.jar"]
+build = ["sh", "-c", "mvn clean package -DskipTests"]
 
 [[ports]]
 localPort = 8080

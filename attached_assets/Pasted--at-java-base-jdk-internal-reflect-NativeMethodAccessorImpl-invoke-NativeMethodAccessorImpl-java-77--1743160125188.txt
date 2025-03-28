@@ -1,0 +1,31 @@
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:102) ~[gemini-chat-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[gemini-chat-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[gemini-chat-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'qnAService': Injection of autowired dependencies failed
+
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.0.jar!/:6.2.0]
+
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1568) ~[spring-beans-6.2.0.jar!/:6.2.0]

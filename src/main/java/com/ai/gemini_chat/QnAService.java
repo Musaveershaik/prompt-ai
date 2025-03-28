@@ -1,33 +1,32 @@
+
 package com.ai.gemini_chat;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.Map;
 
 @Service
 public class QnAService {
-    // Access to APIKey and URL [Gemini]
-    @Value("${gemini.api.url}")
-    private String geminiApiUrl;
-
-    @Value("${GEMINI_API_KEY}")
-    private String geminiApiKey;
-
+    private final String geminiApiUrl;
+    private final String geminiApiKey;
     private final WebClient webClient;
 
-    public QnAService(WebClient.Builder webClient) {
-        this.webClient = webClient.build();
+    public QnAService(
+            WebClient.Builder webClientBuilder,
+            @Value("${gemini.api.url:}") String geminiApiUrl,
+            @Value("${GEMINI_API_KEY:}") String geminiApiKey) {
+        this.geminiApiUrl = geminiApiUrl;
+        this.geminiApiKey = geminiApiKey;
+        this.webClient = webClientBuilder.build();
     }
 
     public String getAnswer(String question) {
         try {
             if (geminiApiKey == null || geminiApiKey.trim().isEmpty()) {
-                return "Error: Gemini API key is not configured. Please set it in the Secrets tool.";
+                return "Error: Gemini API key is not configured. Please set it in the environment variables.";
             }
 
-            // Construct the request payload
             Map<String, Object> requestBody = Map.of(
                     "contents", new Object[] {
                             Map.of("parts", new Object[] {
@@ -36,7 +35,6 @@ public class QnAService {
                     }
             );
 
-            // Make API Call
             String response = webClient.post()
                     .uri(geminiApiUrl + geminiApiKey)
                     .header("Content-Type", "application/json")
@@ -45,13 +43,9 @@ public class QnAService {
                     .bodyToMono(String.class)
                     .block();
 
-            return response != null ? response : "Error: No response from API";
+            return response != null ? response : "No response from API";
         } catch (Exception e) {
-            String errorMessage = e.getMessage();
-            if (errorMessage.contains("403")) {
-                return "Error: Invalid API key or unauthorized access. Please check your Gemini API key.";
-            }
-            return "Error: " + errorMessage;
+            return "Error: " + e.getMessage();
         }
     }
 }

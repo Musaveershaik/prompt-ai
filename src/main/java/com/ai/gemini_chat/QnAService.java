@@ -22,25 +22,28 @@ public class QnAService {
     }
 
     public String getAnswer(String question) {
-        // Construct the request payload
-        Map<String, Object> requestBody = Map.of(
-                "contents", new Object[] {
-                        Map.of("parts", new Object[] {
-                                Map.of("text", question)
-                        } )
-                }
-        );
+        try {
+            // Construct the request payload
+            Map<String, Object> requestBody = Map.of(
+                    "contents", new Object[] {
+                            Map.of("parts", new Object[] {
+                                    Map.of("text", question)
+                            })
+                    }
+            );
 
-        // Make API Call
-        String response = webClient.post()
+            // Make API Call
+            String response = webClient.post()
                     .uri(geminiApiUrl + geminiApiKey)
-                    .header("Content-Type","application/json")
+                    .header("Content-Type", "application/json")
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
 
-        // Return response
-        return response;
+            return response != null ? response : "Error: No response from API";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 }

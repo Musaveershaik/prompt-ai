@@ -38,7 +38,7 @@ public class QnAService {
 
             // Make API Call
             String response = webClient.post()
-                    .uri(geminiApiUrl + "?key=" + geminiApiKey)
+                    .uri(geminiApiUrl + geminiApiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(requestBody)
                     .retrieve()

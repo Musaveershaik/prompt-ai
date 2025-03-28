@@ -1,22 +1,21 @@
+
 package com.ai.gemini_chat;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/qna")
 public class AIController {
 
     private final QnAService qnAService;
+
+    @Autowired
+    public AIController(QnAService qnAService) {
+        this.qnAService = qnAService;
+    }
 
     @PostMapping("/ask")
     public ResponseEntity<String> askQuestion(@RequestBody Map<String, String> payload) {

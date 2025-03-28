@@ -23,6 +23,10 @@ public class QnAService {
 
     public String getAnswer(String question) {
         try {
+            if (geminiApiKey == null || geminiApiKey.trim().isEmpty()) {
+                return "Error: Gemini API key is not configured. Please set it in the Secrets tool.";
+            }
+
             // Construct the request payload
             Map<String, Object> requestBody = Map.of(
                     "contents", new Object[] {
@@ -43,7 +47,11 @@ public class QnAService {
 
             return response != null ? response : "Error: No response from API";
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+            String errorMessage = e.getMessage();
+            if (errorMessage.contains("403")) {
+                return "Error: Invalid API key or unauthorized access. Please check your Gemini API key.";
+            }
+            return "Error: " + errorMessage;
         }
     }
 }
